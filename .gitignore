@@ -7,11 +7,14 @@
 *.lib
 *.pdb
 *.exp
+*.pyc
+*.thunderstore.zip
+*.nrm
 ./funcs.h
 patches.map
+assets_extracted/
 build/
 runtime/
-.vscode/launch.json
 .vscode/settings.json
+.vscode/launch.json
 .vscode/tasks.json
-**/__pycache__
