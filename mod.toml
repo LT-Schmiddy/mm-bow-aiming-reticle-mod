@@ -5,7 +5,7 @@
 
 # Unique ID of this mod. Pick something long enough that it'll never be the same as any other mod.
 # The name displayed in the mod management menu is separate from this so this doesn't need to be human readable.
-id = "bow-aiming-reticle"
+id = "MM_Bow_Aiming_Reticle"
 
 # Version of this mod.
 version = "1.0.0"
@@ -13,9 +13,15 @@ version = "1.0.0"
 # Authors of this mod.
 authors = [ "LT_Schmiddy" ]
 
+display_name = "Bow Aiming Reticle"
+
 # ID of the target recomp game.
 game_id = "mm"
 
+description =  """
+A simple QOL mod. Draws an aiming reticle when the bow is out and an arrow is drawn.
+"""
+short_description = "Draws an aiming reticle when aiming the bow with an arrow drawn."
 # Minimum version of the target recomp (e.g. Zelda 64: Recompiled) that this mod can run on.
 minimum_recomp_version = "1.2.0"
 
@@ -32,6 +38,9 @@ native_libraries = [
 
 # Input elf file to generate a mod from.
 elf_path = "build/mod.elf"
+
+mod_filename = "MM_Bow_Aiming_Reticle_1.0.0"
+
 
 # Reference symbol files.
 func_reference_syms_file = "Zelda64RecompSyms/mm.us.rev1.syms.toml"

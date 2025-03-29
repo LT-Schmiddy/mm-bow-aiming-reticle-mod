@@ -1,0 +1,7 @@
+{
+    "name": "Bow_Aiming_Reticle",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/LT-Schmiddy/mm-bow-aiming-reticle-mod",
+    "description": "Draws an aiming reticle when aiming the bow with an arrow drawn.",
+    "dependencies": []
+}

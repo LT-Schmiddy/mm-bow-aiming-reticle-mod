@@ -7,6 +7,7 @@
 *.lib
 *.pdb
 *.exp
+*.nrm
 ./funcs.h
 patches.map
 build/
@@ -15,3 +16,4 @@ runtime/
 .vscode/settings.json
 .vscode/tasks.json
 **/__pycache__
+*.thunderstore.zip
