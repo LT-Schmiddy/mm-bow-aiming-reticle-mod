@@ -8,7 +8,7 @@
 id = "MM_Bow_Aiming_Reticle"
 
 # Version of this mod.
-version = "1.0.0"
+version = "1.0.3"
 
 # Authors of this mod.
 authors = [ "LT_Schmiddy" ]
@@ -39,7 +39,7 @@ native_libraries = [
 # Input elf file to generate a mod from.
 elf_path = "build/mod.elf"
 
-mod_filename = "MM_Bow_Aiming_Reticle_1.0.0"
+mod_filename = "MM_Bow_Aiming_Reticle"
 
 
 # Reference symbol files.
@@ -47,4 +47,4 @@ func_reference_syms_file = "Zelda64RecompSyms/mm.us.rev1.syms.toml"
 data_reference_syms_files = [ "Zelda64RecompSyms/mm.us.rev1.datasyms.toml", "Zelda64RecompSyms/mm.us.rev1.datasyms_static.toml" ]
 
 # Additional files to include in the mod.
-additional_files = [ ]
+additional_files = [ "thumb.dds" ]
