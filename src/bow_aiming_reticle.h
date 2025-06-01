@@ -3,6 +3,56 @@
 #include "z64actor.h"
 #include "z64math.h"
 
+extern Vec3f* sPlayerCurBodyPartPos;
+extern char gPlayerAnim_pg_punchA[];
+extern u8 D_801C0778[];
+extern Vec3f D_801C0994[];
+extern Gfx * object_link_child_DL_017818[];
+extern char gPlayerAnim_pg_punchB[];
+extern u8 D_801C07AC[];
+extern Vec3f sPlayerGetItemRefPos;
+extern char gPlayerAnim_pg_gakkistart[];
+extern char gPlayerAnim_pg_gakkiwait[];
+extern char gPlayerAnim_pg_punchC[];
+extern char gPlayerAnim_pg_gakkiplay[];
+extern struct_80124618 D_801C0510[];
+extern struct_80124618 D_801C0428[];
+extern Gfx * object_link_goron_DL_00FC18[];
+extern char gPlayerAnim_cl_setmask[];
+extern char gPlayerAnim_cl_setmaskend[];
+extern Gfx* D_801C0B20[];
+extern char gPlayerAnim_pn_gurd[];
+extern struct_80124618 D_801C0410[];
+extern char gPlayerAnim_pn_gakkistart[];
+extern char object_link_nuts_DL_00A348[];
+extern char gPlayerAnim_pn_gakkiplay[];
+extern char gPlayerAnim_dl_kokeru[];
+extern struct_80124618 D_801C0340[];
+extern struct_80124618 D_801C0368[];
+extern char object_link_nuts_DL_007390[];
+extern char gameplay_keep_Matanimheader_054F18[];
+extern char gameplay_keep_DL_054C90[];
+extern char gPlayerAnim_pn_drinkend[];
+extern char gPlayerAnim_pn_tamahaki[];
+extern Vec3f D_801C0A48[];
+extern Vec3f D_801C0A24[];
+extern Vec3f D_801C0A90[];
+extern Vec3f D_801C0A6C[];
+extern Gfx* gPlayerShields[];
+extern Gfx* gHookshotReticleDL[];
+
+extern const char object_link_goron_DL_010590[];
+extern const char object_link_goron_DL_010368[];
+extern const char object_link_goron_DL_010140[];
+extern const char object_link_goron_DL_00FF18[];
+extern const char object_link_goron_DL_00FCF0[];
+extern const char object_link_nuts_DL_007A28[];
+extern const char object_link_nuts_DL_0077D0[];
+extern const char object_link_nuts_DL_007548[];
+extern const char object_link_nuts_DL_007900[];
+extern const char object_link_nuts_DL_0076A0[];
+
+
 s32 func_801226E0(PlayState* play, s32 arg1);
 s32 func_80122744(PlayState* play, struct_80122744_arg1* arg1, u32 arg2, Vec3s* arg3);
 s32 func_80122760(PlayState* play, struct_80122744_arg1* arg1, f32 arg2);

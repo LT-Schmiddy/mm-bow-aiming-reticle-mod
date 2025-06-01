@@ -1,59 +1,85 @@
 #include "bow_aiming_reticle.h"
-
-
+// Consider using gHookshotReticleTex
 
 RECOMP_IMPORT("*", int recomp_printf(const char* fmt, ...));
 
 // Declarations:
 
 // Externs:
-extern Vec3f* sPlayerCurBodyPartPos;
-extern char gPlayerAnim_pg_punchA[];
-extern u8 D_801C0778[];
-extern Vec3f D_801C0994[];
-extern char object_link_child_DL_017818[];
-extern char gPlayerAnim_pg_punchB[];
-extern u8 D_801C07AC[];
-extern Vec3f sPlayerGetItemRefPos;
-extern char gPlayerAnim_pg_gakkistart[];
-extern char gPlayerAnim_pg_gakkiwait[];
-extern char gPlayerAnim_pg_punchC[];
-extern char gPlayerAnim_pg_gakkiplay[];
-extern struct_80124618 D_801C0510[];
-extern struct_80124618 D_801C0428[];
-extern char object_link_goron_DL_00FC18[];
-extern char gPlayerAnim_cl_setmask[];
-extern char gPlayerAnim_cl_setmaskend[];
-extern Gfx* D_801C0B20[];
-extern char gPlayerAnim_pn_gurd[];
-extern struct_80124618 D_801C0410[];
-extern char gPlayerAnim_pn_gakkistart[];
-extern char object_link_nuts_DL_00A348[];
-extern char gPlayerAnim_pn_gakkiplay[];
-extern char gPlayerAnim_dl_kokeru[];
-extern struct_80124618 D_801C0340[];
-extern struct_80124618 D_801C0368[];
-extern char object_link_nuts_DL_007390[];
-extern char gameplay_keep_Matanimheader_054F18[];
-extern char gameplay_keep_DL_054C90[];
-extern char gPlayerAnim_pn_drinkend[];
-extern char gPlayerAnim_pn_tamahaki[];
-extern Vec3f D_801C0A48[];
-extern Vec3f D_801C0A24[];
-extern Vec3f D_801C0A90[];
-extern Vec3f D_801C0A6C[];
-extern Gfx* gPlayerShields[];
 
-extern const char object_link_goron_DL_010590[];
-extern const char object_link_goron_DL_010368[];
-extern const char object_link_goron_DL_010140[];
-extern const char object_link_goron_DL_00FF18[];
-extern const char object_link_goron_DL_00FCF0[];
-extern const char object_link_nuts_DL_007A28[];
-extern const char object_link_nuts_DL_0077D0[];
-extern const char object_link_nuts_DL_007548[];
-extern const char object_link_nuts_DL_007900[];
-extern const char object_link_nuts_DL_0076A0[];
+#define BOW_DRAW_DISTANCE  77600.0f
+void Player_Action_81(Player* player, PlayState* play);
+
+void Player_DrawBowReticle(PlayState* play, Player* player) {
+    f32 hookshotDistance = BOW_DRAW_DISTANCE;
+    static Vec3f D_801C094C = { -500.0f, -100.0f, 0.0f };
+    CollisionPoly* poly;
+    s32 bgId;
+    Vec3f sp7C;
+    Vec3f sp70;
+    Vec3f pos;
+
+    D_801C094C.z = 0.0f;
+    Matrix_MultVec3f(&D_801C094C, &sp7C);
+    D_801C094C.z = hookshotDistance;
+    Matrix_MultVec3f(&D_801C094C, &sp70);
+
+    if (player->actionFunc != Player_Action_81 // don't bother with collision in the shooting galleries.
+        && BgCheck_AnyLineTest3(&play->colCtx, &sp7C, &sp70, &pos, &poly, true, true, true, true, &bgId)) {
+        if (!func_800B90AC(play, &player->actor, poly, bgId, &pos) ||
+            BgCheck_ProjectileLineTest(&play->colCtx, &sp7C, &sp70, &pos, &poly, true, true, true, true, &bgId)) {
+            Vec3f sp58;
+            f32 sp54;
+            f32 scale;
+
+            OPEN_DISPS(play->state.gfxCtx);
+
+            OVERLAY_DISP = Gfx_SetupDL(OVERLAY_DISP, SETUPDL_7);
+
+            SkinMatrix_Vec3fMtxFMultXYZW(&play->viewProjectionMtxF, &pos, &sp58, &sp54);
+
+            scale = (sp54 < 200.0f) ? 0.08f : (sp54 / 200.0f) * 0.08f;
+
+            Matrix_Translate(pos.x, pos.y, pos.z, MTXMODE_NEW);
+            Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+
+            gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+            gSPSegment(OVERLAY_DISP++, 0x06, play->objectCtx.slots[player->actor.objectSlot].segment);
+            gSPDisplayList(OVERLAY_DISP++, gHookshotReticleDL);
+
+            CLOSE_DISPS(play->state.gfxCtx);
+            return;
+        }
+    } 
+
+    // Otherwise:
+    pos.x = sp70.x;
+    pos.y = sp70.y;
+    pos.z = sp70.z;
+
+    Vec3f sp58;
+    f32 sp54;
+    f32 scale;
+    OPEN_DISPS(play->state.gfxCtx);
+
+    OVERLAY_DISP = Gfx_SetupDL(OVERLAY_DISP, SETUPDL_7);
+
+    SkinMatrix_Vec3fMtxFMultXYZW(&play->viewProjectionMtxF, &pos, &sp58, &sp54);
+
+    scale = (sp54 < 200.0f) ? 0.08f : (sp54 / 200.0f) * 0.08f;
+
+    Matrix_Translate(pos.x, pos.y, pos.z, MTXMODE_NEW);
+    Matrix_Scale(scale, scale, scale, MTXMODE_APPLY);
+
+    gSPMatrix(OVERLAY_DISP++, Matrix_NewMtx(play->state.gfxCtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+
+    gSPSegment(OVERLAY_DISP++, 0x06, play->objectCtx.slots[player->actor.objectSlot].segment);
+    gSPDisplayList(OVERLAY_DISP++, gHookshotReticleDL);
+
+    CLOSE_DISPS(play->state.gfxCtx);
+    
+}
 
 
 // Logic:
@@ -223,7 +249,7 @@ RECOMP_PATCH void Player_PostLimbDrawGameplay(PlayState* play, s32 limbIndex, Gf
 
                     if (func_800B7128(player) != 0) {
                         Matrix_Translate(500.0f, 300.0f, 0.0f, MTXMODE_APPLY);
-                        Player_DrawHookshotReticle(play, player, 77600.0f * 32.0f);
+                        Player_DrawBowReticle(play, player);
                     }
                 }
             }
